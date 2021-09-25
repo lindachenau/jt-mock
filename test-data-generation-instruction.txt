@@ -1,0 +1,19 @@
+amplify init
+amplify add api
+- Follow the prompts and accept default values
+- Use schema.graphql in the attachment
+amplify push
+- resources will be created in AWS
+- remember the API end point and API key reported by AWS Amplify after resources are created
+
+Clone the code for test data generation from github
+- git clone https://github.com/lindachenau/jt-mock.git
+- Create .env and copy the API end point and key to these two environment variables
+API_URL=<Your API end point>
+API_KEY=<Your API key>
+
+- Run the following in sequence to generate test data
+node gen-senders-stops.js
+node gen-operators.js
+node gen-suburbs-drivers.js
+node gen-jobs.js

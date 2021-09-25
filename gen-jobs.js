@@ -31,37 +31,22 @@ const genJobs = async() => {
     const selected = shuffled.slice(0, nSelected);
     const origin = stops[0].id
     const destination = stops[1].id
-    if (nSelected === 0) {
-      // Just one route
+    // Add depots between origin and destination
+    let allStops = []
+    allStops.push(origin)
+    selected.forEach(s => allStops.push(s.id))
+    allStops.push(destination)
+    for (let m = 0; m <= nSelected; m++) {
       createRoute({
         jobID: job.id,
-        fromStopID: origin,
-        toStopID: destination,
+        fromStopID: allStops[m],
+        toStopID: allStops[m + 1],
         driverID: uuidNil,
         createdBy: uuidNil,
         updatedBy: uuidNil,
-        segmentNo: 1,
+        segmentNo: m + 1,
       })      
-    } else {
-      // Add depots between origin and destination
-      let allStops = []
-      allStops.push(origin)
-      selected.forEach(s => allStops.push(s.id))
-      allStops.push(destination)
-      for (let m = 0; m <= nSelected; m++) {
-        createRoute({
-          jobID: job.id,
-          fromStopID: allStops[m],
-          toStopID: allStops[m + 1],
-          driverID: uuidNil,
-          createdBy: uuidNil,
-          updatedBy: uuidNil,
-          segmentNo: m + 1,
-        })      
-      }
     }
-
-
   }
 }
 
